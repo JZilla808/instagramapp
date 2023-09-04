@@ -1,0 +1,45 @@
+# Logs and diagnostics
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node modules and package lock files
+node_modules
+npm-shrinkwrap.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Vite and build output
+dist
+dist-ssr
+
+# Test output
+coverage/
+/cypress/videos/
+/cypress/screenshots/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Editor and IDE paraphernalia
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/*
+!.vscode/extensions.json
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# User-generated
+README.md
