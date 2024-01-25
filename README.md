@@ -15,7 +15,7 @@ InstagramApp is a modern, lightweight, and efficient web application built with 
 
 ## Features
 
-- User Authentication
+- User Authentication (including Guest Login)
 - Image Upload
 - User Interaction (Likes, Comments)
 
@@ -32,14 +32,3 @@ InstagramApp is a modern, lightweight, and efficient web application built with 
 1. Clone the repository.
 2. Install the dependencies using `npm install`.
 3. Start the development server using `npm run dev`.
-
-## Testing
-
-To ensure the quality of the application, we have set up both unit and end-to-end testing. You can run the tests using the following commands:
-
-- `npm run test:unit` for unit tests.
-- `npm run test:e2e` for end-to-end tests.
-
-## Conclusion
-
-This project showcases my ability to build complex web applications using modern technologies. It demonstrates my understanding of Vue.js, state management with Pinia, routing with Vue Router, and testing with Cypress and Vitest. I am confident that my skills and experiences make me a strong candidate for any web developer position.

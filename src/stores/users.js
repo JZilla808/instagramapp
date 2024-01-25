@@ -61,6 +61,14 @@ export const useUserStore = defineStore("users", () => {
     errorMessage.value = "";
   };
 
+  // Handle guest login
+  const guestLogin = async () => {
+    const guestEmail = "guest88@gmail.com";
+    const guestPassword = "welcome123";
+
+    await handleLogin({ email: guestEmail, password: guestPassword });
+  };
+
   // Handle user signup
   const handleSignup = async (credentials) => {
     const { email, password, username } = credentials;
@@ -174,11 +182,11 @@ export const useUserStore = defineStore("users", () => {
     errorMessage,
     loading,
     loadingUser,
-    user,
     handleLogin,
     handleSignup,
     handleLogout,
     getUser,
     clearErrorMessage,
+    guestLogin,
   };
 });
