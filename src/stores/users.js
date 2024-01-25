@@ -2,12 +2,14 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import { supabase } from "../supabase";
 
+// Define the user store
 export const useUserStore = defineStore("users", () => {
   const user = ref(null);
   const errorMessage = ref("");
   const loading = ref(false);
   const loadingUser = ref(false);
 
+  // Validate email format
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -16,6 +18,7 @@ export const useUserStore = defineStore("users", () => {
       );
   };
 
+  // Handle user login
   const handleLogin = async (credentials) => {
     const { email, password } = credentials;
 
@@ -29,8 +32,11 @@ export const useUserStore = defineStore("users", () => {
 
     loading.value = true;
 
+    // Convert email to lowercase
+    const lowerCaseEmail = email.toLowerCase();
+
     const { error } = await supabase.auth.signInWithPassword({
-      email,
+      email: lowerCaseEmail,
       password,
     });
 
@@ -42,7 +48,7 @@ export const useUserStore = defineStore("users", () => {
     const { data: existingUser } = await supabase
       .from("users")
       .select()
-      .eq("email", email)
+      .eq("email", lowerCaseEmail)
       .single();
 
     user.value = {
@@ -55,13 +61,13 @@ export const useUserStore = defineStore("users", () => {
     errorMessage.value = "";
   };
 
+  // Handle user signup
   const handleSignup = async (credentials) => {
     const { email, password, username } = credentials;
 
     // Validations
     if (password.length < 6) {
       errorMessage.value = "Password length is too short";
-
       return errorMessage.value;
     }
 
@@ -91,9 +97,12 @@ export const useUserStore = defineStore("users", () => {
       return (errorMessage.value = "User already registered");
     }
 
+    // Convert email to lowercase
+    const lowerCaseEmail = email.toLowerCase();
+
     // Check if user with email already exists
     const { error } = await supabase.auth.signUp({
-      email,
+      email: lowerCaseEmail,
       password,
     });
 
@@ -105,7 +114,7 @@ export const useUserStore = defineStore("users", () => {
     // Sign up user
     await supabase.from("users").insert({
       username,
-      email,
+      email: lowerCaseEmail,
     });
 
     const { data: newUser } = await supabase
@@ -123,11 +132,13 @@ export const useUserStore = defineStore("users", () => {
     loading.value = false;
   };
 
+  // Handle user logout
   const handleLogout = async () => {
     await supabase.auth.signOut();
     user.value = null;
   };
 
+  // Get user information
   const getUser = async () => {
     loadingUser.value = true;
     const { data } = await supabase.auth.getUser();
@@ -140,7 +151,7 @@ export const useUserStore = defineStore("users", () => {
     const { data: userWithEmail } = await supabase
       .from("users")
       .select()
-      .eq("email", data.user.email)
+      .eq("email", data.user.email.toLocaleLowerCase())
       .single();
 
     user.value = {
@@ -152,10 +163,12 @@ export const useUserStore = defineStore("users", () => {
     loadingUser.value = false;
   };
 
+  // Clear error message
   const clearErrorMessage = () => {
     errorMessage.value = "";
   };
 
+  // Return the store methods and properties
   return {
     user,
     errorMessage,
